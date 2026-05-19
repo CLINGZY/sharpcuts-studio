@@ -1,11 +1,9 @@
 import "./ServicesSection.css"
-
-import haircutImg from "../../assets/images/haircut.jpeg";
-import beardImg from "../../assets/images/beard.jpeg";
-import premiumImg from "../../assets/images/premium.jpeg";
+import { fetchServices } from "../../firebase/services.js";
+import { useEffect, useState } from "react";
 
 
-const services = [
+/* const services = [
   {
     id: 1,
     name: "Classic Haircut",
@@ -27,10 +25,50 @@ const services = [
     price: "₦7000",
     image: premiumImg
   }
-];
+]; */
 
 
 export default function ServicesSection() {
+    const [services, setServices] = useState([])
+    const [loading, setLoading] = useState(true);
+
+
+
+    useEffect(() => {
+        const load = async () => {
+            setLoading(true);
+
+            const data = await fetchServices();
+
+            setServices(data);
+            setLoading(false);
+        };
+
+        load();
+    }, []);
+
+
+
+    if (loading) {
+        return (
+            <section className="services-section">
+                <h2 className="services-title">Our Services</h2>
+                <p className="services-subtitle">Loading services...</p>
+            </section>
+        );
+    }
+
+
+    if (!loading && services.length === 0) {
+        return (
+            <section className="services-section">
+                <h2 className="services-title">Our Services</h2>
+                <p className="services-subtitle">No services available yet.</p>
+            </section>
+        );
+    }
+
+
     return (
         <section className="services-section">
             <h2 className="services-title">Our Services</h2>
@@ -40,7 +78,7 @@ export default function ServicesSection() {
                 {services.map((service) => {
                     return (
                         <div key={service.id} className="service-card">
-                            <img className="service-image" src={service.image} alt={service.name} />
+                            <img className="service-image" src={service.imageUrl} alt={service.name} />
                             <h3 className="service-name">{service.name}</h3>
                             <p className="service-description">{service.description}</p>
                             <span className="service-price">{service.price}</span>
