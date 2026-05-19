@@ -7,8 +7,13 @@
   text-align: center;
   color: white;
   padding: 0 20px;
+  position: relative;
+  overflow: hidden;
 
-  background-image: url("../../assets/images/sharcuts-hero.png");
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+    url("../../assets/images/sharcuts-hero.png");
+
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -19,6 +24,8 @@
   font-weight: 700;
   color: #d4af37;
   margin-bottom: 15px;
+  line-height: 1.2;
+  max-width: 90%;
 }
 
 .hero-subtitle {
@@ -33,6 +40,7 @@
   gap: 15px;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .btn-primary {
@@ -63,4 +71,31 @@
 
 .btn-secondary:hover {
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+  .hero-container {
+    padding: 0 1rem;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    max-width: 100%;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    max-width: 300px;
+    padding: 0.9rem 1rem;
+  }
 }
